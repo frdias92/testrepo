@@ -1,0 +1,41 @@
+
+
+SELECTION, DATECOMBO1
+
+01/01/2021, 01/01/2021 | 02/15/2021 | 03/05/2021
+02/15/2021, 01/01/2021 | 02/15/2021 | 03/05/2021
+03/05/2021, 01/01/2021 | 02/15/2021 | 03/05/2021
+
+
+STEP 1.1 for UD - Create first calculated table
+STEP 1.2 Rename calculated table & column
+DAX:
+=DISTINCT
+	(UNION
+		(SELECTCOLUMNS
+			(uvw_APPLICATION, "Selection", uvw_APPLICATION[Application Creation Date], "DateCombo1", uvw_APPLICATION[Application Date Slicer 1]), 		SELECTCOLUMNS(
+			uvw_APPLICATION, "Selection", uvw_APPLICATION[Application Last Updated Date], "DateCombo1", uvw_APPLICATION[Application Date Slicer 1])))
+
+
+
+**ONE TO MANY**
+
+
+=ALLNOBLANKROW(uvw_APPLICATION_DATEFILTER_1[DateCombo1])
+
+UNIQUE_DATECOMBO1
+01/01/2021 | 02/15/2021
+
+
+DAX:
+=ALLNOBLANKROW(uvw_APPLICATION_DATEFILTER_1[DateCombo1])
+
+
+**ONE TO MANY**
+
+
+uvw_APPLICATION
+
+APPID, APPLICATION CREATE DATE, APPLICATION LAST UPDATED DATE, STATUS, etc........ Application Date Slicer 1
+
+10000001, 01/01/2021, 02/15/2021, In Review, 01/01/2021 | 02/15/2021
